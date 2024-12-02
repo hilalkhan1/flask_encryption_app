@@ -1,6 +1,7 @@
 class EncryptionAlgorithms:
     @staticmethod
-    def rot13_encrypt_decrypt(text):
+    def rot13(text):
+        """Encrypt and decrypt using ROT-13 (same logic for both)."""
         result = []
         for char in text:
             if 'a' <= char <= 'z':
@@ -13,6 +14,7 @@ class EncryptionAlgorithms:
 
     @staticmethod
     def caesar_encrypt(text, shift):
+        """Encrypt text using Caesar cipher."""
         result = []
         for char in text:
             if 'a' <= char <= 'z':
@@ -25,10 +27,12 @@ class EncryptionAlgorithms:
 
     @staticmethod
     def caesar_decrypt(text, shift):
+        """Decrypt text using Caesar cipher."""
         return EncryptionAlgorithms.caesar_encrypt(text, -shift)
 
     @staticmethod
     def columnar_encrypt(text, key):
+        """Encrypt text using columnar transposition."""
         key_order = sorted(list(key))
         columns = {char: [] for char in key_order}
         for i, char in enumerate(text):
@@ -37,6 +41,7 @@ class EncryptionAlgorithms:
 
     @staticmethod
     def columnar_decrypt(text, key):
+        """Decrypt text using columnar transposition."""
         n_cols = len(key)
         n_rows = len(text) // n_cols
         extra_chars = len(text) % n_cols
@@ -54,5 +59,3 @@ class EncryptionAlgorithms:
                 if i < len(columns[char]):
                     result.append(columns[char][i])
         return ''.join(result)
-
-

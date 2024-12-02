@@ -3,89 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Encryption & Decryption</title>
-    <link rel="stylesheet" href="/static/styles.css">
+    <title>Encryption App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
-    <div class="container">
-        <h1>Encryption & Decryption Tool</h1>
-        <form action="/" method="POST">
-            <label for="algorithm">Choose an algorithm:</label>
-            <select name="algorithm" id="algorithm" required>
-                <option value="ROT-13">ROT-13</option>
-                <option value="Caesar">Caesar Cipher</option>
-                <option value="Columnar">Columnar Transposition</option>
-            </select>
+    <h1>Encryption and Decryption</h1>
+    <form method="POST">
+        <label>Select Algorithm:</label>
+        <select name="algorithm">
+            <option value="ROT-13" {% if request.form.algorithm == "ROT-13" %}selected{% endif %}>ROT-13</option>
+            <option value="Caesar" {% if request.form.algorithm == "Caesar" %}selected{% endif %}>Caesar Cipher</option>
+            <option value="Columnar" {% if request.form.algorithm == "Columnar" %}selected{% endif %}>Columnar Transposition</option>
+        </select>
+        <br><br>
 
-            <label for="action">Choose an action:</label>
-            <div>
-                <input type="radio" id="encrypt" name="action" value="Encrypt" checked>
-                <label for="encrypt">Encrypt</label>
-                <input type="radio" id="decrypt" name="action" value="Decrypt">
-                <label for="decrypt">Decrypt</label>
-            </div>
+        <label>Action:</label>
+        <input type="radio" name="action" value="Encrypt" {% if action == "Encrypt" %}checked{% endif %}> Encrypt
+        <input type="radio" name="action" value="Decrypt" {% if action == "Decrypt" %}checked{% endif %}> Decrypt
+        <br><br>
 
-            <div id="text-input-container">
-                <label for="text">Enter your text:</label>
-                <textarea id="text" name="text" rows="4" required></textarea>
-            </div>
+        <label>Text:</label>
+        <input type="text" name="text" value="{{ text }}">
+        <br><br>
 
-            <div id="shift-key-container" style="display: none;">
-                <label for="shift">Shift (for Caesar Cipher):</label>
-                <input type="number" id="shift" name="shift" min="1" max="25">
-            </div>
+        <div id="extra-fields">
+            <label>Shift (for Caesar):</label>
+            <input type="number" name="shift" value="{{ shift }}">
+            <br><br>
 
-            <div id="key-container" style="display: none;">
-                <label for="key">Key (for Columnar Transposition):</label>
-                <input type="text" id="key" name="key">
-            </div>
-
-            <button type="submit">Submit</button>
-        </form>
-
-        {% if result %}
-        <div class="result">
-            <h2>Result:</h2>
-            <p>{{ result }}</p>
+            <label>Key (for Columnar):</label>
+            <input type="text" name="key" value="{{ key }}">
         </div>
-        {% endif %}
-    </div>
+        <br>
 
-    <script>
-        const algorithmDropdown = document.getElementById('algorithm');
-        const actionEncrypt = document.getElementById('encrypt');
-        const actionDecrypt = document.getElementById('decrypt');
-        const textInputContainer = document.getElementById('text-input-container');
-        const textInput = document.getElementById('text');
-        const shiftKeyContainer = document.getElementById('shift-key-container');
-        const keyContainer = document.getElementById('key-container');
+        <button type="submit">Submit</button>
+    </form>
 
-        // Toggle fields based on selected algorithm
-        algorithmDropdown.addEventListener('change', () => {
-            const selectedAlgorithm = algorithmDropdown.value;
-            shiftKeyContainer.style.display = selectedAlgorithm === 'Caesar' ? 'block' : 'none';
-            keyContainer.style.display = selectedAlgorithm === 'Columnar' ? 'block' : 'none';
-
-            // Clear irrelevant fields when not needed
-            if (selectedAlgorithm !== 'Caesar') {
-                document.getElementById('shift').value = '';
-            }
-            if (selectedAlgorithm !== 'Columnar') {
-                document.getElementById('key').value = '';
-            }
-        });
-
-        // Toggle input text field based on action
-        actionEncrypt.addEventListener('click', () => {
-            textInputContainer.style.display = 'block';
-            textInput.required = true; // Make text field required for encryption
-        });
-
-        actionDecrypt.addEventListener('click', () => {
-            textInputContainer.style.display = 'none';
-            textInput.required = false; // Remove required attribute for decryption
-            textInput.value = ''; // Clear the text field
-        });
-    </script>
+    <h2>Result:</h2>
+    <p>{{ result }}</p>
 </body>
 </html>
