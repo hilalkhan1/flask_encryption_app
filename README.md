@@ -26,7 +26,7 @@ Follow these steps to set up the project locally:
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/hilalkhan1/flask_encryption_app.git
-   cd encryption-web-app
+   cd flask_encryption_app
    ```
 
 2. **Set Up a Virtual Environment** (Optional but recommended)
