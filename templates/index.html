@@ -9,8 +9,8 @@
 <body>
     <h1>Encryption and Decryption</h1>
     <form method="POST">
-        <label>Select Algorithm:</label>
-        <select name="algorithm">
+        <label for="algorithm">Select Algorithm:</label>
+        <select id="algorithm" name="algorithm">
             <option value="ROT-13" {% if request.form.algorithm == "ROT-13" %}selected{% endif %}>ROT-13</option>
             <option value="Caesar" {% if request.form.algorithm == "Caesar" %}selected{% endif %}>Caesar Cipher</option>
             <option value="Columnar" {% if request.form.algorithm == "Columnar" %}selected{% endif %}>Columnar Transposition</option>
@@ -18,21 +18,26 @@
         <br><br>
 
         <label>Action:</label>
-        <input type="radio" name="action" value="Encrypt" {% if action == "Encrypt" %}checked{% endif %}> Encrypt
-        <input type="radio" name="action" value="Decrypt" {% if action == "Decrypt" %}checked{% endif %}> Decrypt
+        <div class="radio-container">
+            <input type="radio" id="encrypt" name="action" value="Encrypt" {% if action == "Encrypt" %}checked{% endif %}>
+            <label for="encrypt">Encrypt</label>
+            
+            <input type="radio" id="decrypt" name="action" value="Decrypt" {% if action == "Decrypt" %}checked{% endif %}>
+            <label for="decrypt">Decrypt</label>
+        </div>
         <br><br>
 
-        <label>Text:</label>
-        <input type="text" name="text" value="{{ text }}">
+        <label for="text">Text:</label>
+        <input id="text" type="text" name="text" value="{{ text }}">
         <br><br>
 
         <div id="extra-fields">
-            <label>Shift (for Caesar):</label>
-            <input type="number" name="shift" value="{{ shift }}">
+            <label for="shift">Shift (for Caesar):</label>
+            <input id="shift" type="number" name="shift" value="{{ shift }}">
             <br><br>
 
-            <label>Key (for Columnar):</label>
-            <input type="text" name="key" value="{{ key }}">
+            <label for="key">Key (for Columnar):</label>
+            <input id="key" type="text" name="key" value="{{ key }}">
         </div>
         <br>
 
@@ -40,6 +45,6 @@
     </form>
 
     <h2>Result:</h2>
-    <p>{{ result }}</p>
+    <p id="result">{{ result }}</p>
 </body>
 </html>

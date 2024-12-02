@@ -30,6 +30,17 @@ input, select, button {
     border-radius: 4px;
 }
 
+.radio-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.radio-container label {
+    margin-left: 5px;
+    font-weight: normal;
+}
+
 button {
     background-color: #4CAF50;
     color: white;
@@ -39,4 +50,10 @@ button {
 
 button:hover {
     background-color: #45a049;
+}
+
+#result {
+    text-align: center;
+    margin-top: 20px;
+    font-weight: bold;
 }
