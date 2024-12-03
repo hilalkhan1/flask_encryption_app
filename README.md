@@ -67,7 +67,7 @@ Follow these steps to set up the project locally:
 ## **Screenshots**
 
 ### Main Interface
-![Main Interface](https://github.com/hilalkhan1/flask_encryption_app/interface.png)
+![Main Interface](https://github.com/hilalkhan1/flask_encryption_app/blob/main/interface.png)
 
 ## **Encryption Algorithms**
 
